@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tatame em Palavras – SZABJJ</title>
+<style>
+  :root{
+    --preto:#111;
+    --cinza:#1b1b1b;
+    --cinza-2:#2a2a2a;
+    --vermelho:#b60000;
+    --texto:#e9e9e9;
+    --texto-dim:#bfbfbf;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--preto);color:var(--texto);font-family:Arial,Helvetica,sans-serif}
+
+  /* Sidebar */
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;width:280px;background:#000;
+    border-right:3px solid var(--vermelho);padding:16px 12px;overflow-y:auto
+  }
+  .brand{color:#fff;text-align:center;margin:6px 0 14px 0}
+  .brand h1{font-size:18px;margin:0;color:#fff}
+  .brand small{color:var(--texto-dim)}
+  .toc h3{margin:10px 0 8px 8px;color:var(--vermelho);font-size:14px}
+  .toc a{
+    display:block;padding:8px 10px;margin:4px 4px;border-radius:6px;
+    color:#d9d9d9;text-decoration:none;border:1px solid #1f1f1f;background:#0b0b0b
+  }
+  .toc a:hover{background:var(--vermelho);color:#fff;border-color:#000}
+
+  /* Content */
+  main{margin-left:300px;padding:22px;max-width:980px}
+  section{
+    background:var(--cinza);border:1px solid #222;border-radius:12px;
+    padding:18px;margin:0 0 38px 0;box-shadow:0 0 18px rgba(0,0,0,.35)
+  }
+  section h2{
+    margin:6px 0 12px 0;color:#fff;border-left:6px solid var(--vermelho);
+    padding-left:10px
+  }
+  section .meta{color:var(--texto-dim);font-size:13px;margin-top:-6px;margin-bottom:8px}
+
+  /* Slideshow (por seção) */
+  .slideshow{
+    position:relative;width:100%;height:420px;border-radius:10px;overflow:hidden;
+    margin-bottom:14px;background:#000
+  }
+  .slide{
+    position:absolute;inset:0;display:none;align-items:center;justify-content:center
+  }
+  .slide.active{display:flex}
+  .slide img{width:100%;height:100%;object-fit:cover}
+  .slide video{width:100%;height:100%;object-fit:cover;border:none;outline:none;border-radius:0}
+  .slide iframe{width:100%;height:100%;border:0}
+  .nav-btn{
+    position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);
+    color:#fff;border:none;width:44px;height:44px;border-radius:50%;cursor:pointer;
+    font-size:20px;display:flex;align-items:center;justify-content:center;z-index:5
+  }
+  .nav-btn:hover{background:rgba(0,0,0,.8)}
+  .nav-prev{left:10px}
+  .nav-next{right:10px}
+  .dots{
+    position:absolute;left:0;right:0;bottom:8px;display:flex;gap:6px;justify-content:center;z-index:4
+  }
+  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35)}
+  .dot.active{background:#fff}
+
+  /* Botão Topo */
+  #topBtn{
+    position:fixed;right:20px;bottom:20px;background:var(--vermelho);color:#fff;
+    border:none;border-radius:50%;width:54px;height:54px;font-size:20px;cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,.5);display:none
+  }
+  #topBtn:hover{background:#8f0000}
+
+  /* Listas e destaques */
+  .lead{font-size:17px;line-height:1.55}
+  ul{margin:8px 0 8px 20px}
+  li{margin:6px 0}
+  .tag{display:inline-block;background:#0e0e0e;border:1px solid #2a2a2a;padding:4px 8px;border-radius:999px;font-size:12px;color:#bdbdbd;margin:2px 6px 2px 0}
+  .quote{
+    border-left:4px solid var(--vermelho);padding:10px 12px;background:#121212;border-radius:8px;color:#eee
+  }
+
+  @media(max-width:920px){
+    .sidebar{position:static;width:auto;border-right:none;border-bottom:3px solid var(--vermelho)}
+    main{margin:0}
+  }
+</style>
+</head>
+<body>
+
+<!-- MENU LATERAL -->
+<aside class="sidebar">
+  <div class="brand">
+    <h1>Tatame em Palavras – SZABJJ</h1>
+    <small>Blog oficial da equipe</small>
+  </div>
+  <div class="toc">
+    <h3>História & Fundação</h3>
+    <a href="#fundacao">Fundação do CT SZABJJ</a>
+    <a href="#sobrevivencia-2020">Sobrevivência e Crescimento 2020</a>
+
+    <h3>Competição & Graduação</h3>
+    <a href="#campeonatos">Participação em Campeonatos</a>
+    <a href="#primeira-graduacao">Primeira Graduação no CT</a>
+    <a href="#graduacao-merito">Graduação por Mérito</a>
+    <a href="#faixa-branca">A Faixa Branca</a>
+
+    <h3>Inclusão & Formação</h3>
+    <a href="#beneficios-criancas">Benefícios do Jiu-Jitsu para Crianças</a>
+    <a href="#treino-infantil">Treino Infantil com Mascote</a>
+    <a href="#historia-matheus">História de Matheus</a>
+    <a href="#aluno-deficiencia">Aluno com Deficiência</a>
+
+    <h3>Técnica & Mentalidade</h3>
+    <a href="#quedas">Importância do Aprendizado de Quedas</a>
+    <a href="#amarrar-faixa">Aprender a Amarrar a Faixa</a>
+    <a href="#inspirar-exemplo">Inspirar Pelo Exemplo</a>
+    <a href="#aprender-erros">Aprender com Erros</a>
+    <a href="#pacifico-verdade">Ser Pacífico de Verdade</a>
+
+    <h3>Perfis & Entrevistas</h3>
+    <a href="#mestra-mara">Mestra Mara Souza</a>
+    <a href="#entrevista-mara">Entrevista – Mestra Mara Souza</a>
+    <a href="#mestre-eduardo-missao">Entrevista – Mestre Eduardo (Nilópolis)</a>
+    <a href="#mestre-eduardo-origem">Entrevista – Mestre Eduardo (Origem)</a>
+    <a href="#perfil-dudu">Perfil – Dudu Souza</a>
+    <a href="#depoimento-dudu">Depoimento – Dudu Souza (vídeo)</a>
+  </div>
+</aside>
+
+<main>
+
+  <!-- FUNDAÇÃO -->
+  <section id="fundacao">
+    <h2>Fundação do CT SZABJJ</h2>
+    <div class="meta">20 de agosto de 2020 — Nilópolis, RJ</div>
+    <div class="slideshow" data-interval="5000">
+      <div class="slide active">
+        <img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466033/IMG_2673_gnfanc.jpg" alt="Inauguração CT SZABJJ"/>
+      </div>
+      <!-- setas e dots são adicionados via JS -->
+    </div>
+    <p class="lead">
+      A inauguração do Centro de Treinamento SZABJJ, em <strong>20/08/2020</strong>, reuniu grandes mestres, professores, amigos e ex-alunos dos mestres <strong>Eduardo Souza</strong> e <strong>Mara Souza</strong>. Um encontro emocionante, que celebrou décadas de dedicação à arte suave e inaugurou uma nova fase em Nilópolis.
+    </p>
+    <p>
+      A agora <strong>SZABJJ</strong> nasce a partir de uma linhagem sólida, fundada pelo primogênito <strong>Dudu Souza</strong> (faixa-preta) e <strong>liderada pelo Mestre Eduardo Souza</strong>, faixa coral <strong>8º grau</strong>. O CT foi pensado para acolher todas as idades e objetivos: da iniciação infantil ao alto rendimento, da defesa pessoal ao jiu-jitsu inclusivo.
+    </p>
+    <p>
+      O tatame foi aberto com benção, apertos de mão e o compromisso de manter viva a tradição da família Souza, ao mesmo tempo em que abraça a modernidade: metodologia atualizada, treinos com propósito e uma comunidade que cresce de maneira orgânica e respeitosa.
+    </p>
+  </section>
+
+  <!-- CAMPEONATOS -->
+  <section id="campeonatos">
+    <h2>Participação em Campeonatos</h2>
+    <div class="meta">Intermunicipal Profissional (19/08/2021) • Grand Prix Profissional (17/10/2021)</div>
+    <div class="slideshow" data-interval="5000">
+      <!-- todas as imagens fornecidas -->
+      <div class="slide active"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464972/Nathalie_69_aibxud.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464970/Nathalie_68_rjcsow.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464969/Nathalie_67_xsk9ob.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464967/Nathalie_66_scgny6.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464963/Nathalie_64_sh7n0m.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464957/Nathalie_59_b48hp9.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464948/Nathalie_50_nslsf6.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464946/Nathalie_48_fpir6c.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464943/Nathalie_46_wdd947.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464938/Nathalie_42_d0qvi1.jpg" alt=""></div>
+
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464934/Matheus_Rogrigues_13_dlmzhd.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464933/Matheus_Rogrigues_11_gghzok.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464933/Matheus_Rogrigues_12_vsabzl.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464928/Matheus_Rogrigues_7_n7umqp.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464927/Matheus_Rogrigues_6_gzbki4.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464923/Matheus_Rogrigues_4_elcgoc.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464918/Matheus_Rogrigues_1_sonejg.jpg" alt=""></div>
+
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464913/Marcos_4_bsnc5h.jpg" alt=""></div>
+
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464908/Julia_31_jgziox.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464906/Julia_29_lce9ob.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464905/Julia_28_ils1fk.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464904/Julia_27_h1wwc1.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464899/Julia_10_gjqdgt.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464902/Julia_24_hc6zor.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464906/Julia_30_vibd3j.jpg" alt=""></div>
+    </div>
+    <p class="lead">
+      A SZABJJ acredita que o <strong>Jiu-Jitsu vai muito além</strong> de lutas e medalhas. Porém, quando um aluno <strong>deseja competir</strong> — sem pressão — oferecemos o <strong>treinamento necessário</strong> para acelerar o aprendizado e o amadurecimento no tatame <em>e</em> na vida.
+    </p>
+    <p>
+      A participação no <strong>Intermunicipal Profissional (19/08/2021)</strong> e no <strong>Grand Prix Profissional (17/10/2021)</strong> reforçou nossa filosofia: competição é um <strong>meio</strong> de evolução. Não se trata apenas de vitórias, e sim de <strong>superação diária</strong>, respeito e espírito esportivo. Orgulho dos nossos guerreiros!
+    </p>
+    <div>
+      <span class="tag">Preparação</span>
+      <span class="tag">Evolução</span>
+      <span class="tag">Respeito</span>
+      <span class="tag">Superação</span>
+    </div>
+  </section>
+
+  <!-- PRIMEIRA GRADUAÇÃO -->
+  <section id="primeira-graduacao">
+    <h2>Primeira Graduação no CT SZABJJ</h2>
+    <div class="meta">7 de fevereiro de 2021</div>
+    <div class="slideshow" data-interval="5000">
+      <div class="slide active"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755469728/_DSC0100_uegeso.jpg" alt=""></div>
+    </div>
+    <p class="lead">
+      Nossa primeira graduação no CT SZABJJ foi marcante. Um dos alunos, que já havia treinado no passado, retornou à SZA BJJ e concluiu uma etapa importante da sua jornada.
+    </p>
+    <p>
+      Acreditamos no equilíbrio entre a <strong>tradição da old school</strong> e a <strong>modernidade da new school</strong>. Essa combinação permite uma <strong>linguagem quase individual</strong> de ensino, adaptando-se a diferentes perfis de alunos e reduzindo significativamente o índice de desistências.
+    </p>
+  </section>
+
+  <!-- MESTRA MARA – PERFIL/HISTÓRICO -->
+  <section id="mestra-mara">
+    <h2>Mestra Mara Souza</h2>
+    <div class="meta">Fato histórico – 24 de dezembro de 2020</div>
+    <div class="slideshow" data-interval="5000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755465853/lv_0_20250816214347_bikh9b.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466324/_MG_1644_cauds1.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466324/_MG_1640_y8skij.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466324/_MG_1642_usfn5u.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466324/_MG_1639_hx0exz.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466325/_MG_1648_pydzji.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466325/_MG_1648_pydzji.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466328/_MG_1650_vdu00k.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466328/_MG_1658_q887il.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466328/_MG_1689_whzlgv.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466328/_MG_1693_vocukp.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755466328/_MG_1652_qsjgct.jpg" alt=""></div>
+    </div>
+    <p class="lead">
+      Fato histórico registrado em Nilópolis: a professora de Jiu-Jitsu <strong>Gilcemara Pinto Moraes de Souza (Mara Souza)</strong> foi graduada à <strong>faixa coral vermelha e preta – 7º grau</strong>, tornando-se uma das primeiras mulheres do mundo a alcançar tal graduação.
+    </p>
+    <p>
+      A cerimônia contou com a presença do <strong>Presidente da CBJJP e IPJJF</strong>, com reconhecimento internacional, e reuniu mestres e professores de todo o estado. Membro da família precursora do Jiu-Jitsu em Nilópolis e <strong>primeira mestra na Baixada Fluminense</strong>, Mara desenvolve um trabalho inclusivo no Centro de Treinamento SZA. Prova viva de que <strong>lugar de mulher é onde ela quiser</strong>.
+    </p>
+  </section>
+
+  <!-- ALUNO COM DEFICIÊNCIA -->
+  <section id="aluno-deficiencia">
+    <h2>Inclusão em Ação: Aluno com Deficiência</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755467065/VID-20201223-WA0000_na7cnn.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Seguindo o exemplo do Grão-Mestre <strong>Oswaldo Fadda</strong>, pioneiro do jiu-jitsu inclusivo — e que está na nossa linhagem — a SZABJJ acolhe e forma atletas com diferentes necessidades. O depoimento de um dos muitos faixas-pretas, que possui a <strong>deficiência de não ter uma perna</strong>, mostra que a limitação não foi desculpa: foi combustível para continuar no caminho da arte suave.
+    </p>
+    <p>
+      Esse é o espírito que <strong>surge e floresce na família Souza</strong>: respeito, adaptação, técnica e, acima de tudo, humanidade. Jiu-jitsu para todos!
+    </p>
+  </section>
+
+  <!-- COVID E PROTOCOLOS -->
+  <section id="covid">
+    <h2>COVID-19 e Protocolos: Compromisso com a Segurança</h2>
+    <div class="meta">24 de dezembro de 2020</div>
+    <div class="slideshow" data-interval="7000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470900/Nosso_mestre_Eduardo_Souza_sendo_parabenizado_pelo_presidente_da_CBJJP_e_IPJJF_pela_organiza%C3%A7%C3%A3o_ykvbw4.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Assim que houve flexibilização da quarentena, retomamos as atividades com responsabilidade. O <strong>Mestre Eduardo Souza</strong> foi <strong>parabenizado pelo presidente da CBJJP e IPJJF</strong> pela organização e pelo cuidado com os <strong>protocolos de segurança</strong> nos eventos de graduação e nas aulas.
+    </p>
+    <p>
+      Respeito à vida, à ciência e à comunidade sempre estiveram acima de qualquer resultado esportivo.
+    </p>
+  </section>
+
+  <!-- SOBREVIVÊNCIA 2020 -->
+  <section id="sobrevivencia-2020">
+    <h2>Sobrevivência e Crescimento em 2020</h2>
+    <div class="meta">5 de janeiro de 2021</div>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470886/2020_foi_um_ano_dif%C3%ADcil_mais_at%C3%A9_aqui_nos_ajudou_o_senhor_zs4woa.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      <em>“2020 foi um ano difícil… mas até aqui nos ajudou o Senhor.”</em> Em um período em que tantos negócios ruíram, o nosso nasceu e criou raízes. A fé, a família e o jiu-jitsu nos sustentaram.
+    </p>
+  </section>
+
+  <!-- TREINO INFANTIL COM MASCOTE -->
+  <section id="treino-infantil">
+    <h2>Treino Infantil com a Mascote – Jiu-Jitsu de Berço</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470899/Nossa_mascote_SZA_BJJ_Terceira_gera%C3%A7%C3%A3o_da_fam%C3%ADlia_Souza_de_jiu-jitsu_neta_dos_mestres_Ed_rduthf.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Aqui o jiu-jitsu é de berço! Uma demonstração do treino infantil com a nossa mascote 🥋💪🏽 — <strong>terceira geração</strong> da família Souza no jiu-jitsu: neta dos mestres <strong>Eduardo</strong> e <strong>Mara Souza</strong>, sobrinha do professor <strong>Dudu Souza</strong> e filha do instrutor <strong>Guilherme Souza</strong>.
+    </p>
+  </section>
+
+  <!-- BENEFÍCIOS PARA CRIANÇAS -->
+  <section id="beneficios-criancas">
+    <h2>Benefícios do Jiu-Jitsu para Crianças</h2>
+    <div class="slideshow" data-interval="5000">
+      <div class="slide active"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755385974/161785468_2947820222209790_4748753996785883104_n._bhai25.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755384140/2022-01-23_hafrmt.webp" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464933/Matheus_Rogrigues_11_gghzok.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755464967/Nathalie_66_scgny6.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755468812/IMG_20210531_201043388_ibfha8.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755433871/271834121_1133497354055907_92767328205676514_n..webp_smcmg9.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755469162/IMG_2528_vy3juy.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755469098/IMG_2526_jbuqrc.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755469164/_DSC0070_iq8io2.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755469200/_DSC0087_ijbidr.jpg" alt=""></div>
+      <div class="slide"><img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755375583/IMG-20241202-WA0014_b35cck.jpg" alt=""></div>
+    </div>
+    <p class="lead">
+      É consenso que atividades físicas ajudam a manter o peso ideal, reduzindo obesidade e consequências como diabetes e hipertensão. Mas os benefícios do <strong>Jiu-Jitsu infantil</strong> vão muito além da saúde física.
+    </p>
+    <h3>Senso de disciplina, hierarquia e respeito</h3>
+    <p>
+      Assim como em outras artes marciais, o jiu-jitsu exige respeito: pedir licença ao entrar e sair do tatame, seguir as instruções do professor e compreender a <strong>hierarquia</strong>. A criança aprende a respeitar quem tem mais conhecimento e também os mais novos, entendendo que um dia já esteve no lugar deles.
+    </p>
+    <p>
+      O comportamento muda: saber onde correr e onde não correr, quando fazer silêncio e como respeitar mais velhos, pais e professores — valores que a criança leva para todas as situações da vida.
+    </p>
+    <h3>Lidar com derrotas e vitórias – confiança em alta</h3>
+    <p>
+      Ao aprender novas técnicas, mudar de faixa e vivenciar competições, a criança experimenta <strong>auto-realização</strong>. Vencer não é machucar ou “passar por cima”; e <strong>nem sempre se ganha</strong>. Mesmo nas derrotas existe aprendizado. No esporte e na vida, o importante é <strong>estar fazendo o que se ama</strong>. Com o tempo, a criança ganha confiança para resolver problemas e enfrentar desafios.
+    </p>
+    <h3>Qualidade de vida e bem-estar físico</h3>
+    <p>
+      O jiu-jitsu trabalha corpo e mente. Em tempos de sedentarismo, telas e dispositivos, a prática atua como <strong>prevenção</strong> a doenças, acelera o metabolismo, melhora a <strong>concentração</strong> e promove bem-estar. Mente sã, corpo são — de forma divertida e educativa.
+    </p>
+    <h3>Integração: tem espaço para todos</h3>
+    <p>
+      É impossível treinar jiu-jitsu e não se <strong>socializar</strong>. Amizades nascem no tatame e valores como cooperação e parceria florescem naturalmente. E o melhor: <strong>toda a família pode praticar</strong>. Mesmo que em horários diferentes, pais e filhos compartilham a mesma linguagem e fortalecem laços.
+    </p>
+    <p class="quote">
+      Conclusão: as aulas de jiu-jitsu para crianças melhoram concentração, autoestima, disciplina e saúde. A exigência por excelência reflete positivamente em casa e na escola, formando caráter e preparando para o futuro com responsabilidade e segurança.
+    </p>
+  </section>
+
+  <!-- QUEDAS -->
+  <section id="quedas">
+    <h2>A Importância do Aprendizado de Quedas</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755474913/AQOeM0gdBsXl-E-oiC7pbsZf6X3aw8APB_kn84ei_k6pWSu0333-9aU6sI3X5-ONdzPXhTMyASb66PoJ1N7KgmoqiXJB7OsW_zo1nvr.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Cair faz parte do jogo — e da vida. Uma queda mal executada pode lesionar e tirar o atleta de combate. Aprender a <strong>cair corretamente</strong> é tão importante quanto aprender a derrubar, permitindo retornar mais rápido à luta e reduzindo danos em acidentes <em>fora</em> do tatame.
+    </p>
+  </section>
+
+  <!-- HISTÓRIA DE MATHEUS -->
+  <section id="historia-matheus">
+    <h2>História de Matheus – Exemplo de Dedicação</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <iframe src="https://www.youtube.com/embed/4bqglgstktY" title="História de Matheus" allowfullscreen></iframe>
+      </div>
+      <div class="slide">
+        <img src="https://res.cloudinary.com/ddozlstmp/image/upload/v1755468812/IMG_20210531_201043388_ibfha8.jpg" alt="">
+      </div>
+    </div>
+    <p class="lead">
+      Matheus recebeu a medalha das mãos dos nossos mestres, conquistada no <strong>Campeonato Sul-Americano de Jiu-Jitsu Adaptado (SJJSAF)</strong> para pessoas com necessidades especiais. <strong>Primeiro aluno</strong> da equipe SZA BJJ, é sempre o <strong>primeiro a chegar</strong> no CT e cumpre todas as atividades propostas. 
+    </p>
+    <p>
+      Essa medalha é mais que merecida. Parabéns, Matheus! Você inspira!
+    </p>
+  </section>
+
+  <!-- AMARRAR A FAIXA -->
+  <section id="amarrar-faixa">
+    <h2>Aprender a Amarrar a Faixa</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470903/Nossos_pequenos_guerreiros_mostrando_que_sabem_amarrar_suas_faixas_szabjjgirls_bjjkids_jtlogy.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Aqui na SZABJJ não tem papai e mamãe para amarrar a faixa. Aqui a criança ganha <strong>ferramentas para a vida</strong>. Nossos pequenos guerreiros mostram na prática autonomia e responsabilidade, começando pela própria faixa.
+    </p>
+  </section>
+
+  <!-- GRADUAÇÃO POR MÉRITO -->
+  <section id="graduacao-merito">
+    <h2>Como funciona a Graduação no CT SZABJJ?</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <iframe src="https://www.youtube.com/embed/_iGMG7hG5eU" title="Graduação por Mérito" allowfullscreen></iframe>
+      </div>
+    </div>
+    <p class="lead">
+      Aqui, a graduação é por <strong>MÉRITO</strong>! <strong>Não cobramos por grau</strong> — tudo é conquistado no treino, na dedicação e na evolução real no tatame. Quando há custos? <strong>Apenas na troca de cor de faixa</strong> (material/cerimonial). Simples, justo e transparente.
+    </p>
+  </section>
+
+  <!-- A FAIXA BRANCA -->
+  <section id="faixa-branca">
+    <h2>A Faixa Branca – A Mais Importante</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470902/E_para_voc%C3%AA_que_j%C3%A1_come%C3%A7ou_n%C3%A3o_desista_a_faixa_mais_dif%C3%ADcil_j%C3%A1_%C3%A9_sua_jiujitsu4life_jiuji_xbmbzu.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      A faixa-preta é o <em>faixa-branca que nunca parou</em>. O início é o que importa. Quem começou já está à frente de quem ainda está no sofá. A <strong>faixa branca</strong> é a mais importante da sua vida. Veja nossa <em>aba de turmas e horários</em> e vem conquistar a sua!
+    </p>
+  </section>
+
+  <!-- INSPIRAR PELO EXEMPLO -->
+  <section id="inspirar-exemplo">
+    <h2>Inspirar Pelo Exemplo</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470897/Inspire_mas_seja_exemplo_lembre_-_se_da_responsabilidade_de_ser_espelho_jiujitsu_jiuj_vge28v.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      <strong>“O que seu filho vê, ele quer ser.”</strong> Essa frase te assusta ou conforta? O que seu filho anda assistindo na TV, celular, tablet? O que ele vê você fazer? <strong>Inspire pelo exemplo</strong>. Tire seus filhos da tela e traga-os para o jiu-jitsu.
+    </p>
+  </section>
+
+  <!-- APRENDER COM ERROS -->
+  <section id="aprender-erros">
+    <h2>Aprender com Erros, Quedas e Derrotas</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755470888/Caiu_perdeu_Levanta_de_novoVergonha_%C3%A9_quando_perde_pra_si_mesmo_muaythai_sparring_kick_supqo0.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Nas artes marciais, aprendemos que errar, perder e cair acontecem. Não se trata de <em>sempre vencer</em>, mas de <strong>quanto conseguimos suportar, aprender e seguir em frente</strong> — porque a vida continua.
+    </p>
+  </section>
+
+  <!-- SER PACÍFICO DE VERDADE -->
+  <section id="pacifico-verdade">
+    <h2>Ser Pacífico de Verdade</h2>
+    <div class="slideshow" data-interval="6000">
+      <div class="slide active">
+        <video src="https://res.cloudinary.com/ddozlstmp/video/upload/v1755474341/N%C3%A3o_existe_virtude_em_ser_pac%C3%ADfico_caso_voc%C3%AA_n%C3%A3o_seja_capaz_de_produzir_viol%C3%AAncia._szabjj_JiuJ_g6nscz.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+    <p class="lead">
+      Não existe virtude em ser pacífico se você não é capaz de produzir violência. Com o jiu-jitsu, você aprende a ser <strong>pacificador de verdade</strong>: tendo opção de se defender, você escolhe evitar o perigo — e o perigo, sabendo que você está preparado, tende a evitar você.
+    </p>
+  </section>
+
+  <!-- ENTREVISTA – MARA -->
+  <section id="entrevista-mara">
+    <h2>Entrevista – Mestra Mara Souza</h2>
+    <p class="lead"><strong>“Meu primeiro contato com o Jiu-Jitsu…”</strong></p>
+    <p>
+      “Foi muito diferente do que a gente vê hoje. Era outra época. Ninguém sabia ao certo o que era o Jiu-Jitsu… se tinha kimono, era Judô ou Karatê.
+    </p>
+    <p>
+      Meus pais tiveram 10 filhos — 3 homens e 7 mulheres. E naquela época, dominada pelo patriarcado, luta era coisa de menino.
+    </p>
+    <p>
+      Mesmo sem muitas condições, meu pai conseguiu uma promoção e matriculou meus três irmãos em uma academia de Judô, em Anchieta. Bom assim eu dizia para quem pergunta e não conhecia essa arte marcial nova. Eu? Eu só assistia.
+    </p>
+    <p>
+      Mas eu não perdia um treino. Ficava lá no cantinho, olhando tudo, vibrando por dentro. Era a época dos filmes do Bruce Lee na TV… eu via aquilo e pensava: ‘Eu quero ser lutadora. Eu quero chegar na faixa preta.’
+    </p>
+    <p>
+      E aí o destino começou a se mover. Meus irmãos foram saindo… e o professor, que já tinha notado minha paixão, foi lá e convenceu meu pai — um militar rígido — a deixar que eu ocupasse a vaga de um deles.
+    </p>
+    <p>
+      Ali, eu pisei no tatame pela primeira vez. Foi um turbilhão: alegria, medo, insegurança... Eu era magrinha, fraca, nunca gostei de fazer força. Pensava que isso ia me impedir.
+    </p>
+    <p>
+      Mas o Jiu-Jitsu me ensinou diferente. Ele me mostrou que era exatamente pra mim. Essa arte nasceu pra fazer o fraco vencer o forte. E eu acreditei nisso com tudo que tinha.
+    </p>
+    <p>
+      Hoje, aquela menina que só assistia no cantinho... é mestra. E o que era sonho virou tradição na minha família.” 
+    </p>
+  </section>
+
+  <!-- ENTREVISTA – MESTRE EDUARDO (MISSÃO/LEGADO) -->
+  <section id="mestre-eduardo-missao">
+    <h2>Entrevista – Mestre Eduardo Souza (“Missão que virou legado”)</h2>
+    <div class="slideshow" data-interval="6000">
+      <!-- Nenhuma mídia foi enviada para esta seção. O carrossel permanece oculto se não houver slides. -->
+    </div>
+    <p class="lead">
+      “Trazer o Jiu-Jitsu para Nilópolis foi uma missão... que virou legado.” Tudo começou por volta de 1987. Naquela época, o Jiu-Jitsu era praticamente desconhecido na cidade.
+    </p>
+    <p>
+      Iniciei as primeiras aulas em casa, ao lado da minha namorada — que se tornaria minha esposa e mãe dos nossos filhos. Ensinava onde fosse possível: escolas, igrejas, clubes… até nas ruas. Fazíamos apresentações e torneios improvisados para mostrar o valor da arte.
+    </p>
+    <p>
+      Foi um trabalho árduo. E, como nos primórdios, cheguei a enfrentar combates com praticantes de outras artes marciais para provar a eficiência do Jiu-Jitsu e fincar nossa bandeira em Nilópolis.
+    </p>
+    <p>
+      Nossa entrada no Jiu-Jitsu sempre foi em cadeia: o irmão mais velho puxava o mais novo. Conduzi meus irmãos à nobre arte, primeiro como instrutor e depois como professor.
+    </p>
+    <p>
+      O progresso dos mais novos foi tão rápido que percebemos: faltava material humano na cidade para treinos avançados. Indiquei que treinassem em equipes mais experientes, enquanto eu seguia firme <strong>dentro</strong> da cidade.
+    </p>
+    <p>
+      A virada veio quando meu irmão mais novo abriu um centro de 300 m². Fui para o segundo maior espaço da cidade. Ali, o Jiu-Jitsu se firmou de vez em Nilópolis.
+    </p>
+    <p>
+      Com o tempo, meus irmãos foram embora… eu permaneci. Minha missão sempre foi aqui. Hoje, vejo o legado vivo nos meus filhos, netas e em cada esquina com uma academia funcionando.
+    </p>
+    <p>
+      Todos os professores de Nilópolis — e até das cidades vizinhas — foram nossos alunos ou alunos dos nossos alunos, mesmo os que hoje representam outras equipes. Já temos netos, bisnetos e tataranetos na arte suave. Esse é o legado da Família Souza.”
+    </p>
+  </section>
+
+  <!-- ENTREVISTA – MESTRE EDUARDO (ORIGEM/PIPA) -->
+  <section id="mestre-eduardo-origem">
+    <h2>Entrevista – Mestre Eduardo Souza (“A pipa que mudou tudo”)</h2>
+    <div class="slideshow" data-interval="6000">
+      <!-- Sem mídia enviada para esta seção -->
+    </div>
+    <p class="lead">
+      “Meu primeiro contato com o Jiu-Jitsu foi por causa de uma pipa…”
+    </p>
+    <p>
+      Cresci em uma família com seis irmãos — cinco se tornaram lutadores. Um garoto pulou o muro de casa e tomou nossas pipas. Eu queria resolver na hora, mas meu irmão e meu primo me seguraram. Um mês depois, eles estavam matriculados no Jiu-Jitsu. Eu ainda não treinava, mas já vibrava do lado de fora.
+    </p>
+    <p>
+      Depois, o segundo irmão entrou. Logo fui o terceiro. Por volta de 1978, o Jiu-Jitsu entrou de vez na minha vida. Eu tinha 11 anos e morava em Nilópolis, onde não havia academias.
+    </p>
+    <p>
+      Encontramos uma em Anchieta e começamos com o saudoso <strong>Mestre Hildebrando (Coca-Cola)</strong>, aluno direto do <strong>Grão-Mestre Oswaldo Fadda</strong>.
+    </p>
+    <p>
+      No meio de pipas, muros e irmãos, nasceu uma paixão que dura até hoje. Essa é a minha origem no Jiu-Jitsu.”
+    </p>
+  </section>
+
+  <!-- PERFIL – DUDU SOUZA -->
+  <section id="perfil-dudu">
+    <h2>Perfil – Dudu Souza</h2>
+    <p class="lead">
+      <strong>2ª geração</strong> da <strong>2ª maior família</strong> de mestres e praticantes de Jiu-Jitsu brasileiro. Filho de dois mestres faixa coral e quase literalmente nascido no tatame, carrega a tradição desde o ventre. Multi-campeão, também <strong>faixa marrom de Judô</strong>, Dudu representa a essência, o legado e a evolução do Jiu-Jitsu nacional. Respeite a história. Honre a linhagem. OSS!
+    </p>
+  </section>
+
+  <!-- DEPOIMENTO – DUDU (VÍDEO) -->
+  <section id="depoimento-dudu">
+    <h2>Depoimento – Dudu Souza (vídeo)</h2>
+    <div class="slideshow" data-interval="7000">
+      <div class="slide active">
+        <iframe src="https://www.youtube.com/embed/8mxWLnqE77U" title="Depoimento Dudu Souza" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOTÃO VOLTAR AO TOPO -->
+<button id="topBtn" title="Voltar ao topo">↑</button>
+
+<script>
+/* ========= Botão Topo ========= */
+const topBtn = document.getElementById('topBtn');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 280) topBtn.style.display = 'block';
+  else topBtn.style.display = 'none';
+});
+topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ========= Slideshow por seção ========= */
+function setupSlideshows(){
+  const containers = document.querySelectorAll('.slideshow');
+
+  containers.forEach((wrap, idx) => {
+    const slides = Array.from(wrap.querySelectorAll('.slide'));
+    if (!slides.length){ wrap.style.display='none'; return; }
+
+    // cria setas e dots
+    if (slides.length > 1){
+      const prev = document.createElement('button');
+      prev.className='nav-btn nav-prev';
+      prev.innerHTML='&#10094;';
+      const next = document.createElement('button');
+      next.className='nav-btn nav-next';
+      next.innerHTML='&#10095;';
+      wrap.appendChild(prev); wrap.appendChild(next);
+
+      const dots = document.createElement('div');
+      dots.className='dots';
+      slides.forEach((s,i)=>{
+        const d=document.createElement('span');
+        d.className='dot'+(i===0?' active':'');
+        d.dataset.index=i;
+        d.addEventListener('click', ()=>goTo(i));
+        dots.appendChild(d);
+      });
+      wrap.appendChild(dots);
+
+      prev.addEventListener('click', ()=>change(-1));
+      next.addEventListener('click', ()=>change(1));
+    }
+
+    let current = 0;
+    let interval = parseInt(wrap.dataset.interval||5000,10);
+    let timer = null;
+
+    function show(n){
+      // bounds
+      if (n<0) n = slides.length-1;
+      if (n>=slides.length) n = 0;
+      // pause todos os vídeos que não estão ativos
+      slides.forEach((el,i)=>{
+        el.classList.toggle('active', i===n);
+        const vids = el.querySelectorAll('video');
+        vids.forEach(v=>{
+          if (i===n){ try{ v.play(); }catch(e){} }
+          else { try{ v.pause(); v.currentTime=0; }catch(e){} }
+        });
+      });
+      // atualizar dots
+      const dotEls = wrap.querySelectorAll('.dot');
+      dotEls.forEach((d,i)=>d.classList.toggle('active', i===n));
+      current = n;
+    }
+
+    function change(delta){ stopAuto(); show(current+delta); startAuto(); }
+    function goTo(n){ stopAuto(); show(n); startAuto(); }
+
+    function startAuto(){
+      if (slides.length<=1) return;
+      timer = setInterval(()=>show(current+1), interval);
+    }
+    function stopAuto(){
+      if (timer){ clearInterval(timer); timer=null; }
+    }
+
+    // iniciar
+    show(0);
+    startAuto();
+
+    // pausar auto quando mouse está sobre o slide
+    wrap.addEventListener('mouseenter', stopAuto);
+    wrap.addEventListener('mouseleave', startAuto);
+  });
+}
+document.addEventListener('DOMContentLoaded', setupSlideshows);
+</script>
+
+</body>
+</html>
